@@ -61,8 +61,8 @@
     <IntDir>builds\int\$(Configuration)\$(ProjectName)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)builds\$(Configuration)\$(Platform)\</OutDir>
-    <IntDir>builds\int\$(Configuration)\$(Platform)\</IntDir>
+    <OutDir>$(SolutionDir)builds\$(Configuration)\$(ProjectName)\$(Platform)\</OutDir>
+    <IntDir>builds\int\$(Configuration)\$(ProjectName)\$(Platform)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
