@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33829.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game", "Game\Game.vcxproj", "{FE8AC428-E464-4E4B-807B-693520A3030E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tempus", "Tempus.vcxproj", "{E05083F3-4396-4F98-80D9-730E36A4CE2C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E05083F3-4396-4F98-80D9-730E36A4CE2C}.Debug|x64.ActiveCfg = Debug|x64
+		{E05083F3-4396-4F98-80D9-730E36A4CE2C}.Debug|x64.Build.0 = Debug|x64
+		{E05083F3-4396-4F98-80D9-730E36A4CE2C}.Debug|x86.ActiveCfg = Debug|x64
+		{E05083F3-4396-4F98-80D9-730E36A4CE2C}.Release|x64.ActiveCfg = Release|x64
+		{E05083F3-4396-4F98-80D9-730E36A4CE2C}.Release|x64.Build.0 = Release|x64
+		{E05083F3-4396-4F98-80D9-730E36A4CE2C}.Release|x86.ActiveCfg = Release|x64
+		{FE8AC428-E464-4E4B-807B-693520A3030E}.Debug|x64.ActiveCfg = Debug|x64
+		{FE8AC428-E464-4E4B-807B-693520A3030E}.Debug|x64.Build.0 = Debug|x64
+		{FE8AC428-E464-4E4B-807B-693520A3030E}.Debug|x86.ActiveCfg = Debug|x64
+		{FE8AC428-E464-4E4B-807B-693520A3030E}.Release|x64.ActiveCfg = Release|x64
+		{FE8AC428-E464-4E4B-807B-693520A3030E}.Release|x64.Build.0 = Release|x64
+		{FE8AC428-E464-4E4B-807B-693520A3030E}.Release|x86.ActiveCfg = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4B7E6FF9-53FD-47E3-B451-C4DF2A15E60C}
+	EndGlobalSection
+EndGlobal
