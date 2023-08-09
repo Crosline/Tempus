@@ -3,13 +3,13 @@
 
 namespace Tempus {
 	namespace Log {
-		enum Level : char {
+		enum class Level : char {
 			Debug,
 			Warning,
 			Error
 		};
 
-		enum Category : char {
+		enum class Category : char {
 			General,
 			System,
 			Core,
@@ -17,16 +17,16 @@ namespace Tempus {
 		};
 
 		static const std::unordered_map<Category, std::string> categoryMap = {
-			{General, "General"},
-			{System, "System"},
-			{Core, "Core"},
-			{Rendering, "Rendering"}
+			{Category::General, "General"},
+			{Category::System, "System"},
+			{Category::Core, "Core"},
+			{Category::Rendering, "Rendering"}
 		};
 
 		static const std::unordered_map<Level, std::string> levelMap = {
-			{Debug, "Debug"},
-			{Warning, "Warning"},
-			{Error, "Error"}
+			{Level::Debug, "Debug"},
+			{Level::Warning, "Warning"},
+			{Level::Error, "Error"}
 		};
 
 		inline std::ostream& operator<<(std::ostream& stream, const Category& logCategory) {
