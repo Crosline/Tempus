@@ -34,8 +34,6 @@ namespace Tempus {
 
 			static bool ContainsCategory(const Category& category);
 
-			static void StaticLog(const Level& level, const std::string& message);
-
 			void Log(const Level& level, const std::string& message, const std::string& suffix = "") const;
 
 		public:
@@ -58,7 +56,7 @@ namespace Tempus {
 			Logger() = delete;
 
 			explicit Logger(Category category, std::string prefix = "");
-			Logger(const Logger& other);
+			explicit Logger(const Logger& other);
 
 			~Logger();
 		};
