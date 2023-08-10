@@ -11,9 +11,8 @@ Tempus
 * [U] Updating a feature or changing something.
 * [R] Removing a feature or a library
 * [F] Fixing a bug without new functionality
-* [I] Improvements about readability.
-* [O] Optimization
-* [C] Cleanup
+* [I] Improvements, optimization, memory usage etc...
+* [C] Cleanup and readability
 * [P] Project scope changes, settings etc. general stuff. 
 * [S] Sandbox updates, mostly for test purposes. (Can be changed to [T] later.)
 * [B] Build related changes
