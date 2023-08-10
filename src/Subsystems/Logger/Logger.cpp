@@ -42,9 +42,6 @@ namespace Tempus {
 			Log(Level::Error, message, suffix);
 		}
 
-		// void Logger::StaticLog(const Level& level, const std::string& message) {
-		// 	std::cout << T_STREAM_BRACKETS(level) << T_STREAM_BRACKETS(sharedLogger.prefix) << message << std::endl;
-		// }
 
 		void Logger::EnableCategory(const Category& category) {
 			if (ContainsCategory(category))
