@@ -39,7 +39,10 @@ namespace Tempus {
 			void Log(const Level& level, const std::string& message, const std::string& suffix = "") const;
 
 		public:
+#pragma warning (push)
+#pragma warning (disable : 4251)
 			static std::unique_ptr<Logger> SharedLogger;
+#pragma warning (pop)
 
 			void Debug(const std::string& message, const std::string& suffix = "") const;
 
