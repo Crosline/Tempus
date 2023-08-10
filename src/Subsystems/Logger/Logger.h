@@ -1,7 +1,7 @@
 #pragma once
 #include "Enums.h"
 #include "API.h"
-#include <iostream>
+#include "Common.h"
 
 namespace Tempus
 {

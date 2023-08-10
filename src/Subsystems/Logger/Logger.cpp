@@ -1,4 +1,6 @@
 ﻿#include "Logger.h"
+#include <sstream>
+#include <iostream>
 
 namespace Tempus {
 	namespace Log {
@@ -18,16 +20,23 @@ namespace Tempus {
 			if (category != Category::None && !ContainsCategory(category))
 				return;
 
+			std::ostringstream buffer;
+
+			buffer << T_STREAM_BRACKETS(level);
+
 			if (category != Category::None) {
-				if (!suffix.empty()) {
-					std::cout << T_STREAM_BRACKETS(level) << T_STREAM_BRACKETS(category) << T_STREAM_BRACKETS(prefix << ":" << suffix) << message << std::endl;
-					return;
-				}
-				std::cout << T_STREAM_BRACKETS(level) << T_STREAM_BRACKETS(category) << T_STREAM_BRACKETS(prefix) << message << std::endl;
-				return;
+				buffer << T_STREAM_BRACKETS(category);
+			}
+			
+			buffer << T_STREAM_BRACKETS(prefix);
+			
+			if (!suffix.empty()) {
+				buffer << T_STREAM_BRACKETS(suffix);
 			}
 
-			std::cout << T_STREAM_BRACKETS(level) << T_STREAM_BRACKETS(prefix) << message << std::endl;
+			buffer << message;
+
+			std::cout << buffer.str() << std::endl;
 		}
 
 		void Logger::Debug(const std::string& message, const std::string& suffix) const {
