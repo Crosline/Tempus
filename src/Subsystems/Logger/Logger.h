@@ -1,12 +1,13 @@
 #pragma once
 #include "Enums.h"
+#include "API.h"
 #include <iostream>
 
 namespace Tempus
 {
 	namespace Log
 	{
-		class Logger;
+		class TEMPUS_API Logger;
 	}
 }
 
@@ -24,66 +25,32 @@ namespace Tempus {
 
 		class Logger {
 		private:
-			static std::vector<Category> enabledCategories;
+			static std::vector<Category> enabledCategories;\
 			std::string prefix;
 			Category category;
 
-			static bool ContainsCategory(const Category& category) {
-				if (std::find(enabledCategories.begin(), enabledCategories.end(), category) != enabledCategories.end())
-					return true;
+			static bool ContainsCategory(const Category& category);
 
-				return false;
-			}
-
-			void Log(Level level, const std::string& message, const std::string& suffix) const {
-				if (!ContainsCategory(category))
-					return;
-
-				std::cout << T_STREAM_BRACKETS(level) << T_STREAM_BRACKETS(category) << T_STREAM_BRACKETS(prefix + suffix) << message << std::endl;
-			}
+			void Log(Level level, const std::string& message, const std::string& suffix) const;
 
 		public:
-			void Debug(const std::string& message, const std::string& suffix = "") const {
-				Log(Level::Debug, message, suffix);
-			}
+			void Debug(const std::string& message, const std::string& suffix = "") const;
 
-			void Warning(const std::string& message, const std::string& suffix = "") const {
-				Log(Level::Warning, message, suffix);
-			}
+			void Warning(const std::string& message, const std::string& suffix = "") const;
 
-			void Error(const std::string& message, const std::string& suffix = "") const {
-				Log(Level::Error, message, suffix);
-			}
+			void Error(const std::string& message, const std::string& suffix = "") const;
 
-			static void EnableCategory(const Category& category) {
-				if (ContainsCategory(category))
-					return;
+			static void EnableCategory(const Category& category);
 
-				enabledCategories.emplace_back(category);
-			}
-
-			static void DisableCategory(const Category& category) {
-				if (!ContainsCategory(category))
-					return;
-
-				enabledCategories.erase(std::find(enabledCategories.begin(), enabledCategories.end(), category));
-			}
+			static void DisableCategory(const Category& category);
 
 		public:
 			Logger() = delete;
 
-			explicit Logger(Category category, std::string prefix)
-			: prefix(std::move(prefix)), category(category)
-			{
-				EnableCategory(category);
-			}
-			Logger(const Logger& other) {
-				this->prefix = other.prefix;
-				this->category = other.category;
-			}
-			~Logger() = default;
+			explicit Logger(Category category, std::string prefix);
+			Logger(const Logger& other);
+
+			~Logger();
 		};
-		
-		std::vector<Category> Logger::enabledCategories;
 	}
 }
