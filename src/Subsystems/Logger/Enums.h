@@ -14,7 +14,9 @@ namespace Tempus {
 			General,
 			System,
 			Core,
-			Rendering
+			Rendering,
+			Engine,
+			None
 		};
 
 		static const std::unordered_map<Category, std::string> categoryMap = {

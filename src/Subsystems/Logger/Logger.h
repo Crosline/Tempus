@@ -15,7 +15,7 @@ using TLogger = Tempus::Log::Logger;
 
 namespace Tempus {
 	namespace Log {
-#define T_STREAM_BRACKETS(x) "[" << (x) << "]"
+#define T_STREAM_BRACKETS(x) "[" << x << "]"
 #define T_LOGGER Tempus::Log::Logger
 #define T_ENABLE_LOG(category) T_LOGGER::EnableCategory(category)
 #define T_DISABLE_LOG(category) T_LOGGER::DisableCategory(category)
@@ -25,15 +25,22 @@ namespace Tempus {
 
 		class Logger {
 		private:
+#pragma warning (push)
+#pragma warning (disable : 4251)
 			static std::vector<Category> enabledCategories;\
 			std::string prefix;
+#pragma warning (pop)
 			Category category;
 
 			static bool ContainsCategory(const Category& category);
 
-			void Log(Level level, const std::string& message, const std::string& suffix) const;
+			static void StaticLog(const Level& level, const std::string& message);
+
+			void Log(const Level& level, const std::string& message, const std::string& suffix = "") const;
 
 		public:
+			static std::unique_ptr<Logger> SharedLogger;
+
 			void Debug(const std::string& message, const std::string& suffix = "") const;
 
 			void Warning(const std::string& message, const std::string& suffix = "") const;
@@ -47,7 +54,7 @@ namespace Tempus {
 		public:
 			Logger() = delete;
 
-			explicit Logger(Category category, std::string prefix);
+			explicit Logger(Category category, std::string prefix = "");
 			Logger(const Logger& other);
 
 			~Logger();

@@ -2,65 +2,79 @@
 
 namespace Tempus {
 	namespace Log {
-		
-			static std::vector<Category> enabledCategories;
-			std::string prefix;
-			Category category;
 
-			bool Logger::ContainsCategory(const Category& category) {
-				if (std::find(enabledCategories.begin(), enabledCategories.end(), category) != enabledCategories.end())
-					return true;
+		static std::vector<Category> enabledCategories;
+		std::string prefix;
+		Category category;
 
-				return false;
-			}
+		bool Logger::ContainsCategory(const Category& category) {
+			if (std::find(enabledCategories.begin(), enabledCategories.end(), category) != enabledCategories.end())
+				return true;
 
-			void Logger::Log(Level level, const std::string& message, const std::string& suffix) const {
-				if (!ContainsCategory(category))
+			return false;
+		}
+
+		void Logger::Log(const Level& level, const std::string& message, const std::string& suffix) const {
+			if (category != Category::None && !ContainsCategory(category))
+				return;
+
+			if (category != Category::None) {
+				if (!suffix.empty()) {
+					std::cout << T_STREAM_BRACKETS(level) << T_STREAM_BRACKETS(category) << T_STREAM_BRACKETS(prefix << ":" << suffix) << message << std::endl;
 					return;
-
-				std::cout << T_STREAM_BRACKETS(level) << T_STREAM_BRACKETS(category) << T_STREAM_BRACKETS(prefix + suffix) << message << std::endl;
-			}
-		
-			void Logger::Debug(const std::string& message, const std::string& suffix) const {
-				Log(Level::Debug, message, suffix);
+				}
+				std::cout << T_STREAM_BRACKETS(level) << T_STREAM_BRACKETS(category) << T_STREAM_BRACKETS(prefix) << message << std::endl;
+				return;
 			}
 
-			void Logger::Warning(const std::string& message, const std::string& suffix) const {
-				Log(Level::Warning, message, suffix);
-			}
+			std::cout << T_STREAM_BRACKETS(level) << T_STREAM_BRACKETS(prefix) << message << std::endl;
+		}
 
-			void Logger::Error(const std::string& message, const std::string& suffix) const {
-				Log(Level::Error, message, suffix);
-			}
+		void Logger::Debug(const std::string& message, const std::string& suffix) const {
+			Log(Level::Debug, message, suffix);
+		}
 
-			void Logger::EnableCategory(const Category& category) {
-				if (ContainsCategory(category))
-					return;
+		void Logger::Warning(const std::string& message, const std::string& suffix) const {
+			Log(Level::Warning, message, suffix);
+		}
 
-				enabledCategories.emplace_back(category);
-			}
+		void Logger::Error(const std::string& message, const std::string& suffix) const {
+			Log(Level::Error, message, suffix);
+		}
 
-			void Logger::DisableCategory(const Category& category) {
-				if (!ContainsCategory(category))
-					return;
+		// void Logger::StaticLog(const Level& level, const std::string& message) {
+		// 	std::cout << T_STREAM_BRACKETS(level) << T_STREAM_BRACKETS(sharedLogger.prefix) << message << std::endl;
+		// }
 
-				enabledCategories.erase(std::find(enabledCategories.begin(), enabledCategories.end(), category));
-			}
+		void Logger::EnableCategory(const Category& category) {
+			if (ContainsCategory(category))
+				return;
 
-			Logger::Logger(Category category, std::string prefix)
-			: prefix(std::move(prefix)), category(category)
-			{
-				EnableCategory(this->category);
-			}
-			Logger::Logger(const Logger& other) {
-				this->prefix = other.prefix;
-				this->category = other.category;
-			}
+			enabledCategories.emplace_back(category);
+		}
 
-			Logger::~Logger() {
-				DisableCategory(this->category);
-			}
-		
+		void Logger::DisableCategory(const Category& category) {
+			if (!ContainsCategory(category))
+				return;
+
+			enabledCategories.erase(std::find(enabledCategories.begin(), enabledCategories.end(), category));
+		}
+
+		Logger::Logger(Category category, std::string prefix)
+			: prefix(std::move(prefix)), category(category) {
+			EnableCategory(this->category);
+		}
+
+		Logger::Logger(const Logger& other) {
+			this->prefix = other.prefix;
+			this->category = other.category;
+		}
+
+		Logger::~Logger() {
+			DisableCategory(this->category);
+		}
+
 		std::vector<Category> Logger::enabledCategories;
+		std::unique_ptr<Logger> Logger::SharedLogger = std::make_unique<Logger>(Category::None, "Shared");
 	};
 }
