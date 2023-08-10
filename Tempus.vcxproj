@@ -20,6 +20,7 @@
     <ClInclude Include="src\Core\EntryPoint.h" />
     <ClInclude Include="src\Framework\Common.h" />
     <ClInclude Include="src\Framework\EngineConfig.h" />
+    <ClInclude Include="src\Subsystems\DataTools\StringTools.h" />
     <ClInclude Include="src\Subsystems\Logger\Enums.h" />
     <ClInclude Include="src\Subsystems\Logger\Logger.h" />
     <ClInclude Include="src\Tempus.h" />
