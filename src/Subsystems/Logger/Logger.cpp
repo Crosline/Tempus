@@ -22,6 +22,19 @@ namespace Tempus {
 
 			std::ostringstream buffer;
 
+			// Get and print the current time using HH:MM:SS format
+			
+			{
+				std::tm currentTime {};
+				const time_t now = time(nullptr);
+				localtime_s(&currentTime, &now);  // NOLINT(cert-err33-c)
+
+				// Which one is better of the two?
+				buffer << T_STREAM_BRACKETS(currentTime.tm_hour << ":" << currentTime.tm_min << ":" << currentTime.tm_sec);
+			}
+
+			buffer << " ";
+
 			buffer << T_STREAM_BRACKETS(level);
 
 			if (category != Category::None) {
@@ -33,6 +46,8 @@ namespace Tempus {
 			if (!suffix.empty()) {
 				buffer << T_STREAM_BRACKETS(suffix);
 			}
+
+			buffer << " ";
 
 			buffer << message;
 
