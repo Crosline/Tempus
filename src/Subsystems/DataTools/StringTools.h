@@ -2,7 +2,7 @@
 #include "Common.h"
 
 #include <cstdarg>
-#include <format>
+#include <stdexcept>
 
 namespace Tempus {
     namespace DataTools {
@@ -16,7 +16,7 @@ namespace Tempus {
             // https://stackoverflow.com/questions/2342162/stdstring-formatting-like-sprintf
             unsafe std::string Format(const char* message, ...) {
                 if (Contains(message, "%x")) {
-                    throw std::exception("Error during formatting.");
+                    throw std::runtime_error("[ERROR] %x cannot be used with formatting.");
                 }
 
                 va_list args;
@@ -24,7 +24,7 @@ namespace Tempus {
 
                 const size_t size_s = std::vsnprintf(nullptr, 0, message, args) + 1; // Extra space for '\0'
                 if (size_s <= 1) {
-                    throw std::exception("Error during formatting.");
+                    throw std::runtime_error("[ERROR] String size cannot be smaller than 1.");
                 }
 
                 const std::unique_ptr<char[]> buffer(new char[size_s]);
@@ -33,7 +33,13 @@ namespace Tempus {
 
                 va_end(args);
 
-                return std::string(buffer.get(), buffer.get() + size_s - 1);
+                std::string result = std::string(buffer.get(), buffer.get() + size_s - 1);
+
+                if (result.empty()) {
+                    throw std::runtime_error("[ERROR] Something went wrong while formatting.");
+                }
+
+                return result;
             }
 
         }
