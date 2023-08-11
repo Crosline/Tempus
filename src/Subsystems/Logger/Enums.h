@@ -1,55 +1,45 @@
 #pragma once
-#include <string>
-#include <unordered_map>
+#include <iostream>
 
 namespace Tempus {
 	namespace Log {
-		enum class Level : char {
-			Debug,
-			Warning,
-			Error
+		enum class Level : uint8_t {
+			Debug = 0,
+			Warning = 1,
+			Error = 2,
+			None = 255
 		};
 
-		enum class Category : char {
-			General,
-			System,
-			Core,
-			Rendering,
-			Engine,
-			None
+		enum class Category : uint8_t {
+			General = 0,
+			System = 1,
+			Core = 2,
+			Rendering = 3,
+			Engine = 4,
+			None = 255
 		};
-
-		static const std::unordered_map<Category, std::string> categoryMap = {
-			{Category::General, "General"},
-			{Category::System, "System"},
-			{Category::Core, "Core"},
-			{Category::Rendering, "Rendering"}
-		};
-
-		static const std::unordered_map<Level, std::string> levelMap = {
-			{Level::Debug, "Debug"},
-			{Level::Warning, "Warning"},
-			{Level::Error, "Error"}
-		};
+#define TO_STR(x) #x
+		inline std::ostream& operator<<(std::ostream& stream, const Level& logLevel) {
+			switch (logLevel) {
+				case Level::Debug: stream << TO_STR(DEBUG); break;
+				case Level::Error: stream << TO_STR(ERROR); break;
+				case Level::Warning: stream << TO_STR(WARNING); break;
+				case Level::None: break;
+			}
+			return stream;
+		}
 
 		inline std::ostream& operator<<(std::ostream& stream, const Category& logCategory) {
-			const auto it = categoryMap.find(logCategory);
-			if (it != categoryMap.end())
-			{
-				stream << it->second;
+			switch (logCategory) {
+				case Category::General: stream << TO_STR(General); break;
+				case Category::System: stream << TO_STR(System); break;
+				case Category::Core: stream << TO_STR(Core); break;
+				case Category::Rendering: stream << TO_STR(Rendering); break;
+				case Category::Engine: stream << TO_STR(Engine); break;
+				case Category::None: break;
 			}
-
 			return stream;
 		}
-
-		inline std::ostream& operator<<(std::ostream& stream, const Level& logLevel) {
-			const auto it = levelMap.find(logLevel);
-			if (it != levelMap.end())
-			{
-				stream << it->second;
-			}
-
-			return stream;
-		}
+#undef TO_STR
 	}
 }
