@@ -14,6 +14,7 @@
     <ClCompile Include="src\Core\Application.cpp" />
     <ClCompile Include="src\Framework\API.h" />
     <ClCompile Include="src\Subsystems\Logger\Logger.cpp" />
+    <ClCompile Include="src\Subsystems\ThreadTools\ThreadPool.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Core\Application.h" />
@@ -23,6 +24,7 @@
     <ClInclude Include="src\Subsystems\DataTools\StringTools.h" />
     <ClInclude Include="src\Subsystems\Logger\Enums.h" />
     <ClInclude Include="src\Subsystems\Logger\Logger.h" />
+    <ClInclude Include="src\Subsystems\ThreadTools\ThreadPool.h" />
     <ClInclude Include="src\Tempus.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
