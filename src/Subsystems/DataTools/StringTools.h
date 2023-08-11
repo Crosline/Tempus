@@ -22,8 +22,7 @@ namespace Tempus {
                 va_list args;
                 va_start(args, message);
 
-                // Is the extra space for '\0' necessary?
-                const size_t size_s = std::snprintf(nullptr, 0, message, args) + 1; // Extra space for '\0'
+                const size_t size_s = std::vsnprintf(nullptr, 0, message, args) + 1; // Extra space for '\0'
                 if (size_s <= 1) {
                     throw std::exception("Error during formatting.");
                 }
