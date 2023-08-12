@@ -24,19 +24,19 @@ namespace Tempus {
 // #define LOG_ERROR(message, suffix) Tempus::Log::Logger::Debug(message, suffix)
 
         class Logger {
-        private:
+        protected:
 #pragma warning (push)
 #pragma warning (disable : 4251)
             static std::vector<Category> enabledCategories;
             static std::mutex categoryMutex;
-            std::string prefix;
+            std::string _prefix;
 #pragma warning (pop)
-            Category category;
+            Category _category;
 
             static bool ContainsCategory(const Category& category);
 
             std::string PrepareLogMessage(const Level& level, const std::string& message, const std::string& suffix) const;
-            void Log(const Level& level, const std::string& message, const std::string& suffix = "") const;
+            void virtual Log(const Level& level, const std::string& message, const std::string& suffix = "") const = 0;
 
         public:
 #pragma warning (push)
@@ -44,11 +44,11 @@ namespace Tempus {
             static std::unique_ptr<Logger> SharedLogger;
 #pragma warning (pop)
 
-            void Debug(const std::string& message, const std::string& suffix = "") const;
+            void virtual Debug(const std::string& message, const std::string& suffix = "") const;
 
-            void Warning(const std::string& message, const std::string& suffix = "") const;
+            void virtual Warning(const std::string& message, const std::string& suffix = "") const;
 
-            void Error(const std::string& message, const std::string& suffix = "") const;
+            void virtual Error(const std::string& message, const std::string& suffix = "") const;
 
             static void EnableCategory(const Category& category);
 
@@ -60,7 +60,7 @@ namespace Tempus {
             explicit Logger(Category category, std::string prefix = "");
             explicit Logger(const Logger& other);
 
-            ~Logger();
+            virtual ~Logger();
         };
     }
 }

@@ -15,6 +15,8 @@
     <ClCompile Include="src\Framework\API.h" />
     <ClCompile Include="src\Subsystems\DataTools\StringTools.cpp" />
     <ClCompile Include="src\Subsystems\DataTools\TimeTools.cpp" />
+    <ClCompile Include="src\Subsystems\Logger\ConsoleLogger.cpp" />
+    <ClCompile Include="src\Subsystems\Logger\FileLogger.cpp" />
     <ClCompile Include="src\Subsystems\Logger\Logger.cpp" />
     <ClCompile Include="src\Subsystems\ThreadTools\ThreadPool.cpp" />
   </ItemGroup>
@@ -25,7 +27,9 @@
     <ClInclude Include="src\Framework\EngineConfig.h" />
     <ClInclude Include="src\Subsystems\DataTools\StringTools.h" />
     <ClInclude Include="src\Subsystems\DataTools\TimeTools.h" />
+    <ClInclude Include="src\Subsystems\Logger\ConsoleLogger.h" />
     <ClInclude Include="src\Subsystems\Logger\Enums.h" />
+    <ClInclude Include="src\Subsystems\Logger\FileLogger.h" />
     <ClInclude Include="src\Subsystems\Logger\Logger.h" />
     <ClInclude Include="src\Subsystems\ThreadTools\ThreadPool.h" />
     <ClInclude Include="src\Tempus.h" />

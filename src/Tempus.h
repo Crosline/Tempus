@@ -9,6 +9,8 @@
 
 /// Logger Subsystem ///
 #include "Subsystems/Logger/Logger.h"
+#include "Subsystems/Logger/ConsoleLogger.h"
+#include "Subsystems/Logger/FileLogger.h"
 #include "Subsystems/Logger/Enums.h"
 
 /// Data Tools ///

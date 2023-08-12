@@ -4,7 +4,6 @@
 #include <sstream>
 
 #include "../DataTools/TimeTools.h"
-#include "../ThreadTools/ThreadPool.h"
 
 namespace Tempus {
     namespace Log {
@@ -27,12 +26,12 @@ namespace Tempus {
 
             buffer << T_STREAM_BRACKETS(level);
 
-            if (category != Category::None) {
-                buffer << T_STREAM_BRACKETS(category);
+            if (_category != Category::None) {
+                buffer << T_STREAM_BRACKETS(_category);
             }
 
-            if (!prefix.empty()) {
-                buffer << T_STREAM_BRACKETS(prefix);
+            if (!_prefix.empty()) {
+                buffer << T_STREAM_BRACKETS(_prefix);
             }
 
             if (!suffix.empty()) {
@@ -44,19 +43,6 @@ namespace Tempus {
             buffer << message;
 
             return buffer.str();
-        }
-
-        void Logger::Log(const Level& level, const std::string& message, const std::string& suffix) const {
-            if (category != Category::None && !ContainsCategory(category))
-                return;
-
-            std::string result = PrepareLogMessage(level, message, suffix);
-
-            Thread::ThreadPool::SharedPool.EnqueueJob([this, result]()
-            {
-                std::lock_guard<std::mutex> lock(categoryMutex);
-                std::cout << result << std::endl;
-            });
         }
 
         void Logger::Debug(const std::string& message, const std::string& suffix) const {
@@ -87,21 +73,20 @@ namespace Tempus {
         }
 
         Logger::Logger(Category category, std::string prefix)
-            : prefix(std::move(prefix)), category(category) {
-            EnableCategory(this->category);
+            : _prefix(std::move(prefix)), _category(category) {
+            EnableCategory(this->_category);
         }
 
         Logger::Logger(const Logger& other) {
-            this->prefix = other.prefix;
-            this->category = other.category;
+            this->_prefix = other._prefix;
+            this->_category = other._category;
         }
 
         Logger::~Logger() {
-            DisableCategory(this->category);
+            DisableCategory(this->_category);
         }
 
         std::vector<Category> Logger::enabledCategories;
         std::mutex Logger::categoryMutex;
-        std::unique_ptr<Logger> Logger::SharedLogger = std::make_unique<Logger>(Category::None, "Shared");
     };
 }
