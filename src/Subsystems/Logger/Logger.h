@@ -35,6 +35,7 @@ namespace Tempus {
 
             static bool ContainsCategory(const Category& category);
 
+            std::string PrepareLogMessage(const Level& level, const std::string& message, const std::string& suffix) const;
             void Log(const Level& level, const std::string& message, const std::string& suffix = "") const;
 
         public:

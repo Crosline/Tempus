@@ -3,6 +3,7 @@
 #include <iostream>
 #include <sstream>
 
+#include "../DataTools/TimeTools.h"
 #include "../ThreadTools/ThreadPool.h"
 
 namespace Tempus {
@@ -18,23 +19,10 @@ namespace Tempus {
             return false;
         }
 
-        void Logger::Log(const Level& level, const std::string& message, const std::string& suffix) const {
-            if (category != Category::None && !ContainsCategory(category))
-                return;
-
+        std::string Logger::PrepareLogMessage(const Level& level, const std::string& message, const std::string& suffix) const {
             std::ostringstream buffer;
 
-            // Get and print the current time using HH:MM:SS format
-
-            {
-                std::tm currentTime{};
-                const time_t now = time(nullptr);
-                localtime_s(&currentTime, &now); // NOLINT(cert-err33-c)
-
-                // Which one is better of the two?
-                buffer << T_STREAM_BRACKETS(currentTime.tm_hour << ":" << currentTime.tm_min << ":" << currentTime.tm_sec);
-            }
-
+            buffer << T_STREAM_BRACKETS(DataTools::TimeTools::GetCurrentTimeAsString());
             buffer << " ";
 
             buffer << T_STREAM_BRACKETS(level);
@@ -55,15 +43,20 @@ namespace Tempus {
 
             buffer << message;
 
-            std::string result = buffer.str();
-            
-            Thread::ThreadPool::SharedPool.EnqueueJob([this, result]() {
+            return buffer.str();
+        }
+
+        void Logger::Log(const Level& level, const std::string& message, const std::string& suffix) const {
+            if (category != Category::None && !ContainsCategory(category))
+                return;
+
+            std::string result = PrepareLogMessage(level, message, suffix);
+
+            Thread::ThreadPool::SharedPool.EnqueueJob([this, result]()
+            {
                 std::lock_guard<std::mutex> lock(categoryMutex);
                 std::cout << result << std::endl;
             });
-        }
-
-        void Logger::Flush(const std::string& message) {
         }
 
         void Logger::Debug(const std::string& message, const std::string& suffix) const {
