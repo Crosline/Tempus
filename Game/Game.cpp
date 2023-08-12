@@ -10,23 +10,28 @@ public:
 
 
 std::unique_ptr<Tempus::Application> Tempus::CreateApplication() {
-	const Log::Logger log(Log::Category::General, "Application");
+	const Log::Logger* log = new Log::ConsoleLogger(Log::Category::General, "Application");
+	const Log::FileLogger loga2(Log::Category::General, "Application", "blabla.txt");
+	const Log::Logger log2 = std::castloga2;
 
-	log.Debug("test enabled general");
+	log->Debug("test enabled general");
+	log2.Debug("test enabled general");
 
 	
 	TLogger::DisableCategory(Log::Category::General);
 	TLogger::SharedLogger->Debug("Shared test for disabled");
-	log.Debug("test2 for disabled general", __func__);
+	log->Debug("test2 for disabled general", __func__);
 
 	TLogger::EnableCategory(Log::Category::General);
-	TLogger::SharedLogger->Debug("Shared test for enabled");
-	log.Debug("test3 enabled general");
+	TLogger::SharedLogger->Error("Shared test for enabled");
+	TLogger::SharedLogger->Warning("Shared test for enabled");
+	log->Debug("test3 enabled general");
 
-	std::string test = DataTools::StringTools::Format("a %d b", 5);
-	log.Debug(test);
-	log.Debug(DataTools::StringTools::Format("c %d", 5));
-	log.Debug(DataTools::StringTools::Format("dd"));
+	const std::string test = DataTools::StringTools::Format("a %d b", 5);
+	log->Debug(test);
+	log->Debug(DataTools::StringTools::Format("c %d", 5));
+	log->Debug(DataTools::StringTools::Format("dd"));
 
+	delete log;
 	return std::make_unique<Game>();
 }
