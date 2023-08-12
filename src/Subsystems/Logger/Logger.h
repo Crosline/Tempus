@@ -1,4 +1,6 @@
 #pragma once
+#include <mutex>
+
 #include "Enums.h"
 #include "API.h"
 #include "Common.h"
@@ -26,6 +28,7 @@ namespace Tempus {
 #pragma warning (push)
 #pragma warning (disable : 4251)
             static std::vector<Category> enabledCategories;
+            static std::mutex categoryMutex;
             std::string prefix;
 #pragma warning (pop)
             Category category;

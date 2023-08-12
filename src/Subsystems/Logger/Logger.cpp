@@ -3,10 +3,11 @@
 #include <iostream>
 #include <sstream>
 
+#include "../ThreadTools/ThreadPool.h"
+
 namespace Tempus {
     namespace Log {
 
-        static std::vector<Category> enabledCategories;
         std::string prefix;
         Category category;
 
@@ -54,7 +55,15 @@ namespace Tempus {
 
             buffer << message;
 
-            std::cout << buffer.str() << std::endl;
+            std::string result = buffer.str();
+            
+            Thread::ThreadPool::SharedPool.EnqueueJob([this, result]() {
+                std::lock_guard<std::mutex> lock(categoryMutex);
+                std::cout << result << std::endl;
+            });
+        }
+
+        void Logger::Flush(const std::string& message) {
         }
 
         void Logger::Debug(const std::string& message, const std::string& suffix) const {
@@ -99,6 +108,7 @@ namespace Tempus {
         }
 
         std::vector<Category> Logger::enabledCategories;
+        std::mutex Logger::categoryMutex;
         std::unique_ptr<Logger> Logger::SharedLogger = std::make_unique<Logger>(Category::None, "Shared");
     };
 }
