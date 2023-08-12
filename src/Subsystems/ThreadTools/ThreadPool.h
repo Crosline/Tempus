@@ -17,12 +17,15 @@ namespace Tempus {
         private:
             void Loop();
 
+#pragma warning (push)
+#pragma warning (disable : 4251)
             std::queue<std::function<void()>> jobs;
             std::mutex jobPoolMutex;
             std::condition_variable mutexCondition;
+            std::vector<std::thread> threads;
+#pragma warning (pop)
             bool isRunning = false;
             bool isBusy = false;
-            std::vector<std::thread> threads;
 
             ThreadPool();
             ~ThreadPool();
