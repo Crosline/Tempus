@@ -1,8 +1,8 @@
 ﻿#pragma once
-#include "API.h"
-
 #include <string>
 #include <sstream>
+
+#include "API.h"
 
 #define T_TIME Tempus::DataTools::TimeTools
 
@@ -12,7 +12,7 @@ namespace Tempus {
         namespace TimeTools {
             TEMPUS_API std::tm GetCurrentTime();
             TEMPUS_API std::string GetCurrentTimeAsString();
-            
+
         }
     }
 
