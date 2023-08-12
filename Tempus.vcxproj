@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="src\Core\Application.cpp" />
     <ClCompile Include="src\Framework\API.h" />
+    <ClCompile Include="src\Subsystems\DataTools\StringTools.cpp" />
     <ClCompile Include="src\Subsystems\DataTools\TimeTools.cpp" />
     <ClCompile Include="src\Subsystems\Logger\Logger.cpp" />
     <ClCompile Include="src\Subsystems\ThreadTools\ThreadPool.cpp" />
