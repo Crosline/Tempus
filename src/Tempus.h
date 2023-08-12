@@ -13,6 +13,7 @@
 
 /// Data Tools ///
 #include "Subsystems/DataTools/StringTools.h"
+#include "Subsystems/DataTools/TimeTools.h"
 
 /// Thread Tools ///
 #include "Subsystems/ThreadTools/ThreadPool.h"
