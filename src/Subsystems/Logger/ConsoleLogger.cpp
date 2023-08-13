@@ -23,6 +23,6 @@ namespace Tempus {
             });
         }
 
-        std::unique_ptr<Logger> Logger::SharedLogger = std::make_unique<ConsoleLogger>(Category::None, "Shared");
+        std::shared_ptr<Logger> Logger::SharedLogger = std::make_shared<ConsoleLogger>(Category::None, "Shared");
     }
 }

@@ -41,7 +41,7 @@ namespace Tempus {
         public:
 #pragma warning (push)
 #pragma warning (disable : 4251)
-            static std::unique_ptr<Logger> SharedLogger;
+            static std::shared_ptr<Logger> SharedLogger;
 #pragma warning (pop)
 
             void virtual Debug(const std::string& message, const std::string& suffix = "") const;
