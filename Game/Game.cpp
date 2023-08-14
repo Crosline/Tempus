@@ -18,11 +18,10 @@ std::unique_ptr<Tempus::Application> Tempus::CreateApplication() {
 
 	
 	TLogger::DisableCategory(Log::Category::General);
-	TLogger::SharedLogger->Debug("Shared test for disabled");
 	log->Debug("test2 for disabled general", __func__);
 
+	TLogger::SharedLogger->Debug("Shared test for disabled");
 	TLogger::EnableCategory(Log::Category::General);
-	TLogger::SharedLogger->Error("Shared test for enabled");
 	TLogger::SharedLogger->Warning("Shared test for enabled");
 	log->Debug("test3 enabled general");
 
