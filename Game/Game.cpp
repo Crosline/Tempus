@@ -31,5 +31,6 @@ std::unique_ptr<Tempus::Application> Tempus::CreateApplication() {
     log->Debug(DataTools::StringTools::Format("dd"));
 
     delete log;
+    delete log2; 
     return std::make_unique<Game>();
 }
