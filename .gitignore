@@ -431,5 +431,3 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 .idea
-*log.txt
-*logs.txt
