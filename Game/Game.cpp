@@ -11,7 +11,7 @@ public:
 
 std::unique_ptr<Tempus::Application> Tempus::CreateApplication() {
 	const Log::Logger* log = new Log::ConsoleLogger(Log::Category::General, "Application");
-	const std::shared_ptr<Log::Logger> log2 = std::make_shared<Log::FileLogger>(Log::Category::General, "Application", "../logs/game_log.txt");
+	const std::shared_ptr<Log::Logger> log2 = std::make_shared<Log::FileLogger>(Log::Category::General, "Application", "game_log.txt");
 
 	log->Debug("test enabled general");
 	log2->Debug("test enabled general");
