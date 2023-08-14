@@ -12,7 +12,7 @@ namespace Tempus {
         Category category;
 
         bool Logger::ContainsCategory(const Category& category) {
-            if (std::find(enabledCategories.begin(), enabledCategories.end(), category) != enabledCategories.end())
+            if (std::find(_enabledCategories.begin(), _enabledCategories.end(), category) != _enabledCategories.end())
                 return true;
 
             return false;
@@ -62,14 +62,14 @@ namespace Tempus {
             if (ContainsCategory(category))
                 return;
 
-            enabledCategories.emplace_back(category);
+            _enabledCategories.emplace_back(category);
         }
 
         void Logger::DisableCategory(const Category& category) {
             if (!ContainsCategory(category))
                 return;
 
-            enabledCategories.erase(std::find(enabledCategories.begin(), enabledCategories.end(), category));
+            _enabledCategories.erase(std::find(_enabledCategories.begin(), _enabledCategories.end(), category));
         }
 
         Logger::Logger(Category category, std::string prefix)
@@ -86,7 +86,7 @@ namespace Tempus {
             DisableCategory(this->_category);
         }
 
-        std::vector<Category> Logger::enabledCategories;
-        std::mutex Logger::categoryMutex;
+        std::vector<Category> Logger::_enabledCategories;
+        std::mutex Logger::_categoryMutex;
     };
 }

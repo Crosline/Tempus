@@ -19,13 +19,13 @@ namespace Tempus {
 
 #pragma warning (push)
 #pragma warning (disable : 4251)
-            std::queue<std::function<void()>> jobs;
-            std::mutex jobPoolMutex;
-            std::condition_variable mutexCondition;
-            std::vector<std::thread> threads;
+            std::queue<std::function<void()>> _jobs;
+            std::mutex _jobPoolMutex;
+            std::condition_variable _mutexCondition;
+            std::vector<std::thread> _threads;
 #pragma warning (pop)
-            bool isRunning = false;
-            bool isBusy = false;
+            bool _isRunning = false;
+            bool _isBusy = false;
 
             ThreadPool();
             ~ThreadPool();

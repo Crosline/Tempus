@@ -27,8 +27,8 @@ namespace Tempus {
         protected:
 #pragma warning (push)
 #pragma warning (disable : 4251)
-            static std::vector<Category> enabledCategories;
-            static std::mutex categoryMutex;
+            static std::vector<Category> _enabledCategories;
+            static std::mutex _categoryMutex;
             std::string _prefix;
 #pragma warning (pop)
             Category _category;

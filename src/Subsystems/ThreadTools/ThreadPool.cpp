@@ -8,16 +8,16 @@ namespace Tempus {
             while (true) {
                 std::function<void()> job;
                 {
-                    std::unique_lock<std::mutex> lock(jobPoolMutex);
-                    mutexCondition.wait(lock, [this] {
-                        return !isRunning || !jobs.empty();
+                    std::unique_lock<std::mutex> lock(_jobPoolMutex);
+                    _mutexCondition.wait(lock, [this] {
+                        return !_isRunning || !_jobs.empty();
                     });
 
-                    if (!isRunning && jobs.empty())
+                    if (!_isRunning && _jobs.empty())
                         return;
 
-                    job = std::move(jobs.front());
-                    jobs.pop();
+                    job = std::move(_jobs.front());
+                    _jobs.pop();
                 }
 
                 job();
@@ -25,36 +25,36 @@ namespace Tempus {
         }
 
         ThreadPool::ThreadPool() {
-            isRunning = true;
+            _isRunning = true;
             for (uint32_t i = 0; i < std::thread::hardware_concurrency(); i++)
-                threads.emplace_back(&ThreadPool::Loop, this);
+                _threads.emplace_back(&ThreadPool::Loop, this);
         }
 
         ThreadPool::~ThreadPool() {
             {
-                std::unique_lock<std::mutex> lock(jobPoolMutex);
-                isRunning = false;
+                std::unique_lock<std::mutex> lock(_jobPoolMutex);
+                _isRunning = false;
             }
-            mutexCondition.notify_all();
+            _mutexCondition.notify_all();
 
-            for (auto& thread : threads)
+            for (auto& thread : _threads)
                 thread.join();
         }
 
         void ThreadPool::EnqueueJob(const std::function<void()>& job) {
             {
-                std::unique_lock<std::mutex> lock(jobPoolMutex);
-                jobs.emplace(job);
+                std::unique_lock<std::mutex> lock(_jobPoolMutex);
+                _jobs.emplace(job);
             }
-            mutexCondition.notify_one();
+            _mutexCondition.notify_one();
         }
 
         bool ThreadPool::IsBusy() {
             {
-                std::unique_lock<std::mutex> lock(jobPoolMutex);
-                isBusy = !jobs.empty();
+                std::unique_lock<std::mutex> lock(_jobPoolMutex);
+                _isBusy = !_jobs.empty();
             }
-            return isBusy;
+            return _isBusy;
         }
     }
 }

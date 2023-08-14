@@ -16,7 +16,7 @@ namespace Tempus {
 
             Thread::ThreadPool::SharedPool.EnqueueJob([this, result]()
             {
-                std::lock_guard<std::mutex> lock(categoryMutex);
+                std::lock_guard<std::mutex> lock(_categoryMutex);
                 _outputFile << result << std::endl;
             });
         }
