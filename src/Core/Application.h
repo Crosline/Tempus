@@ -4,13 +4,12 @@
 
 namespace Tempus {
 
-	class TEMPUS_API Application {
+	class TEMPUS_API Application {  // NOLINT(cppcoreguidelines-special-member-functions)
 	public:
 		Application();
-		~Application();
+		virtual ~Application();
 
-		void Run();
-
+		virtual void Run() = 0;
 	};
 
 	std::unique_ptr<Application> CreateApplication();

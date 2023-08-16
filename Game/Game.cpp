@@ -5,9 +5,14 @@ class Game : public Tempus::Application {
 public:
     Game() = default;
 
-    ~Game() = default;
-};
+    ~Game() override = default;
 
+    void Run() override {
+        while (true) {
+            
+        }
+    }
+};
 
 std::unique_ptr<Tempus::Application> Tempus::CreateApplication() {
     const Log::Logger* log = new Log::ConsoleLogger(Log::Category::General, "Application");

@@ -6,10 +6,4 @@ namespace Tempus {
 
 	Application::~Application() = default;
 
-	void Application::Run() {
-		while (true)
-		{
-
-		}
-	}
 }
