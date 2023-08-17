@@ -1,4 +1,3 @@
-#include <locale>
 #include <Tempus.h>
 
 class Game : public Tempus::Application {

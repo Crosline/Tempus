@@ -18,6 +18,7 @@
     <ClCompile Include="src\Subsystems\Logger\ConsoleLogger.cpp" />
     <ClCompile Include="src\Subsystems\Logger\FileLogger.cpp" />
     <ClCompile Include="src\Subsystems\Logger\Logger.cpp" />
+    <ClCompile Include="src\Subsystems\Renderer\WindowTools\WinAPIWindow.cpp" />
     <ClCompile Include="src\Subsystems\ThreadTools\ThreadPool.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -31,6 +32,9 @@
     <ClInclude Include="src\Subsystems\Logger\Enums.h" />
     <ClInclude Include="src\Subsystems\Logger\FileLogger.h" />
     <ClInclude Include="src\Subsystems\Logger\Logger.h" />
+    <ClInclude Include="src\Subsystems\Renderer\WindowTools\BaseWindow.h" />
+    <ClInclude Include="src\Subsystems\Renderer\WindowTools\WinAPIWindow.h" />
+    <ClInclude Include="src\Subsystems\Settings\ProjectSettings.h" />
     <ClInclude Include="src\Subsystems\ThreadTools\ThreadPool.h" />
     <ClInclude Include="src\Tempus.h" />
   </ItemGroup>

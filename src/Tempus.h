@@ -7,6 +7,9 @@
 #include "Core/Application.h"
 #include "Core/EntryPoint.h"
 
+/// Settings Subsystem ///
+#include "Subsystems/Settings/ProjectSettings.h"
+
 /// Logger Subsystem ///
 #include "Subsystems/Logger/Logger.h"
 #include "Subsystems/Logger/ConsoleLogger.h"
@@ -19,3 +22,7 @@
 
 /// Thread Tools ///
 #include "Subsystems/ThreadTools/ThreadPool.h"
+
+/// Renderer Subsystem ///
+#include "Subsystems/Renderer/WindowTools/BaseWindow.h"
+#include "Subsystems/Renderer/WindowTools/WinAPIWindow.h"
