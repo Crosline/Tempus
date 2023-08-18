@@ -31,6 +31,7 @@ namespace Tempus {
         }
 
         FileLogger::~FileLogger() {
+            std::lock_guard<std::mutex> lock(_categoryMutex);
             _outputFile.close();
         }
 
