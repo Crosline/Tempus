@@ -17,6 +17,10 @@ Tempus
 * [S] Sandbox updates, mostly for test purposes. (Can be changed to [T] later.)
 * [B] Build related changes
 * [W] Work-in-progress
+* [M] Merge branch
+* [D] Documentation
+* [X] Experimental
+* [!] Important
 
 #### Things to consider while commiting.
 * Commits should be smaller than 50 characters,
