@@ -18,6 +18,10 @@ namespace Tempus {
                     throw std::runtime_error("[ERROR] %x cannot be used with formatting.");
                 }
 
+                if (strlen(message) == 0 ) {
+                    throw std::runtime_error("[ERROR] String cannot be empty.");
+                }
+
                 va_list args;
                 va_start(args, message);
 
